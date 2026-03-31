@@ -6,23 +6,38 @@ import { Plus, BarChart3, Clock, Zap, Star, LayoutGrid, List, ArrowRight } from 
 import { useState, useEffect } from 'react';
 
 export default function DashboardPage() {
+  const [mounted, setMounted] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [favoritesCount, setFavoritesCount] = useState(0);
   const [userName, setUserName] = useState('Designer');
+  const [history, setHistory] = useState<any[]>([]);
 
   useEffect(() => {
+    setMounted(true);
     if (typeof window !== 'undefined') {
       const name = localStorage.getItem('user_name');
       if (name) setUserName(name);
       
       const favorites = JSON.parse(localStorage.getItem('font_favorites') || '[]');
       setFavoritesCount(favorites.length);
+
+      const savedHistory = JSON.parse(localStorage.getItem('analysis_history') || '[]');
+      setHistory(savedHistory);
     }
   }, []);
 
-  const recentAnalyses = [
-    { id: '1', font: 'Inter', confidence: 98, date: 'Hoje, 14:30', category: 'Sans-serif' },
-    { id: '2', font: 'Playfair Display', confidence: 92, date: 'Ontem, 09:15', category: 'Serif' },
+  if (!mounted) {
+    return (
+      <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: 'hsl(var(--background))' }}>
+        <Sidebar />
+        <main style={{ flex: 1 }} />
+      </div>
+    );
+  }
+
+  const recentAnalyses = history.length > 0 ? history : [
+    { id: '1', font: 'Inter', confidence: 98, date: 'Exemplo', category: 'Sans-serif' },
+    { id: '2', font: 'Playfair Display', confidence: 92, date: 'Exemplo', category: 'Serif' },
   ];
 
   return (

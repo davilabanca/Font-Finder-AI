@@ -10,20 +10,24 @@ import type { AnalysisResult } from '@/lib/types';
 export default function AnalysisResultPage() {
   const { id } = useParams();
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
   const [result, setResult] = useState<any>(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    const history = JSON.parse(localStorage.getItem('analysis_history') || '[]');
-    const entry = history.find((h: any) => h.id === id);
-    if (entry) {
-      setResult(entry);
-      const favorites = JSON.parse(localStorage.getItem('font_favorites') || '[]');
-      setIsFavorite(favorites.includes(id));
-    } else {
-      const timer = setTimeout(() => { if (!result) router.push('/dashboard'); }, 2000);
-      return () => clearTimeout(timer);
+    setMounted(true);
+    if (typeof window !== 'undefined') {
+      const history = JSON.parse(localStorage.getItem('analysis_history') || '[]');
+      const entry = history.find((h: any) => h.id === id);
+      if (entry) {
+        setResult(entry);
+        const favorites = JSON.parse(localStorage.getItem('font_favorites') || '[]');
+        setIsFavorite(favorites.includes(id as string));
+      } else {
+        const timer = setTimeout(() => { if (!result) router.push('/dashboard'); }, 2000);
+        return () => clearTimeout(timer);
+      }
     }
   }, [id, router, result]);
 

@@ -16,45 +16,53 @@ const FONT_DATABASE = [
  * Physical Image Analysis using Canvas
  */
 async function analyzePixels(imageSrc: string): Promise<{ isSerif: boolean; density: number }> {
+  if (typeof window === 'undefined') return { isSerif: false, density: 0.15 };
+  
   return new Promise((resolve) => {
     const img = new Image();
     img.crossOrigin = "anonymous";
     img.src = imageSrc;
     img.onload = () => {
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return resolve({ isSerif: false, density: 0.15 });
+      try {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return resolve({ isSerif: false, density: 0.15 });
 
-      // Scale down for performance but keep enough detail
-      canvas.width = 200; 
-      canvas.height = (200 * img.height) / img.width;
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        // Scale down for performance but keep enough detail
+        canvas.width = 200; 
+        canvas.height = (200 * img.height) / img.width;
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      const data = imageData.data;
-      let blackPixels = 0;
-      let edgeVariations = 0;
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imageData.data;
+        let blackPixels = 0;
+        let edgeVariations = 0;
 
-      // Simple heuristic: Ink density and edge horizontal variation (serif detection)
-      for (let i = 0; i < data.length; i += 4) {
-        const avg = (data[i] + data[i+1] + data[i+2]) / 3;
-        if (avg < 128) { // Dark pixel
-          blackPixels++;
-          
-          // Check for serifs (highly simplified: horizontal spurs)
-          if (i > 4 && i < data.length - 4) {
-            const prev = (data[i-4] + data[i-3] + data[i-2]) / 3;
-            if (prev > 200) edgeVariations++; 
+        // Simple heuristic: Ink density and edge horizontal variation (serif detection)
+        for (let i = 0; i < data.length; i += 4) {
+          const avg = (data[i] + data[i+1] + data[i+2]) / 3;
+          if (avg < 128) { // Dark pixel
+            blackPixels++;
+            
+            // Check for serifs (highly simplified: horizontal spurs)
+            if (i > 4 && i < data.length - 4) {
+              const prev = (data[i-4] + data[i-3] + data[i-2]) / 3;
+              if (prev > 200) edgeVariations++; 
+            }
           }
         }
+
+        const density = blackPixels / (canvas.width * canvas.height);
+        // If we have many horizontal "spurs" relative to total ink, likely Serif
+        const isSerif = (edgeVariations / blackPixels) > 0.12; 
+
+        resolve({ isSerif, density });
+      } catch (err) {
+        console.error('Pixel analysis error:', err);
+        resolve({ isSerif: false, density: 0.15 });
       }
-
-      const density = blackPixels / (canvas.width * canvas.height);
-      // If we have many horizontal "spurs" relative to total ink, likely Serif
-      const isSerif = (edgeVariations / blackPixels) > 0.12; 
-
-      resolve({ isSerif, density });
     };
+    img.onerror = () => resolve({ isSerif: false, density: 0.15 });
   });
 }
 
