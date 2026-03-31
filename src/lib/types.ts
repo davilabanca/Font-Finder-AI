@@ -31,11 +31,18 @@ export interface AnalysisResult {
   weight: string;
   tracking: string;
   distortion_degree: string;
+  details?: {
+    category: 'Serif' | 'Sans-serif' | 'Display' | 'Monospace';
+    weight: string;
+    tracking: string;
+    distortion: string;
+  };
   alternative_fonts: Array<{
     name: string;
     similarity: number;
     provider?: string;
     link?: string;
+    type?: string;
   }>;
   google_font_match?: {
     name: string;

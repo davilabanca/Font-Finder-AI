@@ -8,27 +8,37 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   const menuItems = [
-    { name: 'Dashboard', icon: <LayoutDashboard size={20} />, path: '/dashboard' },
-    { name: 'Nova Análise', icon: <FileSearch size={20} />, path: '/dashboard/new' },
-    { name: 'Histórico', icon: <History size={20} />, path: '/dashboard/history' },
-    { name: 'Favoritos', icon: <Star size={20} />, path: '/dashboard/favorites' },
+    { name: 'Dashboard', icon: <LayoutDashboard size={18} />, path: '/dashboard' },
+    { name: 'Nova Análise', icon: <FileSearch size={18} />, path: '/dashboard/new' },
+    { name: 'Histórico', icon: <History size={18} />, path: '/dashboard/history' },
+    { name: 'Favoritos', icon: <Star size={18} />, path: '/dashboard/favorites' },
   ];
 
   const bottomItems = [
-    { name: 'Planos', icon: <CreditCard size={20} />, path: '/dashboard/billing' },
-    { name: 'Perfil', icon: <User size={20} />, path: '/dashboard/profile' },
+    { name: 'Planos', icon: <CreditCard size={18} />, path: '/dashboard/billing' },
+    { name: 'Perfil', icon: <User size={18} />, path: '/dashboard/profile' },
   ];
 
   return (
-    <aside style={{ width: '260px', height: '100vh', borderRight: '1px solid hsl(var(--border))', backgroundColor: 'hsl(var(--card))', position: 'sticky', top: 0, display: 'flex', flexDirection: 'column', padding: '1.5rem' }}>
-      <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '1.25rem', fontWeight: 700, fontFamily: 'Outfit', marginBottom: '2.5rem' }}>
+    <aside style={{ 
+      width: '260px', 
+      height: '100vh', 
+      borderRight: '1px solid hsla(var(--foreground), 0.05)', 
+      backgroundColor: 'hsl(var(--background))', 
+      position: 'sticky', 
+      top: 0, 
+      display: 'flex', 
+      flexDirection: 'column', 
+      padding: '2rem 1.5rem' 
+    }}>
+      <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.25rem', fontWeight: 500, letterSpacing: '-0.5px', marginBottom: '3rem' }}>
         <div style={{ backgroundColor: 'hsl(var(--primary))', padding: '6px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <Search size={20} color="white" />
+          <Search size={20} color="#001011" />
         </div>
-        <span>FontFinder<span style={{ color: 'hsl(var(--primary))' }}>AI</span></span>
+        <span style={{ fontWeight: 600 }}>FontFinder<span className="text-cyan">AI</span></span>
       </Link>
 
-      <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', flex: 1 }}>
+      <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', flex: 1 }}>
         {menuItems.map((item) => {
           const isActive = pathname === item.path;
           return (
@@ -39,25 +49,25 @@ export default function Sidebar() {
                 display: 'flex', 
                 alignItems: 'center', 
                 gap: '12px', 
-                padding: '0.75rem 1rem', 
+                padding: '0.875rem 1rem', 
                 borderRadius: 'var(--radius)', 
                 fontSize: '0.875rem', 
-                fontWeight: 500,
-                color: isActive ? 'white' : 'hsl(var(--muted-foreground))',
-                backgroundColor: isActive ? 'hsla(var(--primary), 0.1)' : 'transparent',
-                transition: 'all 0.2s ease'
+                fontWeight: isActive ? 400 : 300,
+                color: isActive ? 'hsl(var(--primary))' : 'hsl(var(--muted-foreground))',
+                backgroundColor: isActive ? 'hsla(var(--primary), 0.05)' : 'transparent',
+                transition: 'all 0.2s ease',
+                border: isActive ? '1px solid hsla(var(--primary), 0.1)' : '1px solid transparent'
               }}
-              className="sidebar-item"
             >
-              <div style={{ color: isActive ? 'hsl(var(--primary))' : 'inherit' }}>{item.icon}</div>
+              <div style={{ opacity: isActive ? 1 : 0.7 }}>{item.icon}</div>
               {item.name}
-              {isActive && <ChevronRight size={16} style={{ marginLeft: 'auto' }} />}
+              {isActive && <ChevronRight size={14} style={{ marginLeft: 'auto' }} />}
             </Link>
           );
         })}
       </nav>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', borderTop: '1px solid hsl(var(--border))', paddingTop: '1.5rem' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', borderTop: '1px solid hsla(var(--foreground), 0.05)', paddingTop: '2rem' }}>
         {bottomItems.map((item) => (
           <Link 
             key={item.name}
@@ -69,8 +79,9 @@ export default function Sidebar() {
               padding: '0.75rem 1rem', 
               borderRadius: 'var(--radius)', 
               fontSize: '0.875rem', 
-              fontWeight: 500,
+              fontWeight: 300,
               color: 'hsl(var(--muted-foreground))',
+              transition: 'all 0.2s ease'
             }}
           >
             {item.icon}
@@ -87,24 +98,18 @@ export default function Sidebar() {
             padding: '0.75rem 1rem', 
             borderRadius: 'var(--radius)', 
             fontSize: '0.875rem', 
-            fontWeight: 500,
-            color: 'hsl(var(--destructive))',
+            fontWeight: 300,
+            color: '#ff4b4b',
             background: 'none',
             cursor: 'pointer',
-            marginTop: '0.5rem'
+            marginTop: '0.5rem',
+            transition: 'all 0.2s ease'
           }}
         >
-          <LogOut size={20} />
+          <LogOut size={18} />
           Sair
         </button>
       </div>
-
-      <style jsx>{`
-        .sidebar-item:hover {
-          color: white !important;
-          background-color: hsla(var(--primary), 0.05) !important;
-        }
-      `}</style>
     </aside>
   );
 }
