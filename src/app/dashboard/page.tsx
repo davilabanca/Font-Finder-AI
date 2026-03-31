@@ -8,10 +8,16 @@ import { useState, useEffect } from 'react';
 export default function DashboardPage() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [favoritesCount, setFavoritesCount] = useState(0);
+  const [userName, setUserName] = useState('Designer');
 
   useEffect(() => {
-    const favorites = JSON.parse(localStorage.getItem('font_favorites') || '[]');
-    setFavoritesCount(favorites.length);
+    if (typeof window !== 'undefined') {
+      const name = localStorage.getItem('user_name');
+      if (name) setUserName(name);
+      
+      const favorites = JSON.parse(localStorage.getItem('font_favorites') || '[]');
+      setFavoritesCount(favorites.length);
+    }
   }, []);
 
   const recentAnalyses = [
@@ -24,11 +30,15 @@ export default function DashboardPage() {
       <Sidebar />
       
       <main style={{ flex: 1, padding: '3rem 4rem' }} className="animate">
+        <style jsx global>{`
+          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+        `}</style>
+
         {/* Header */}
         <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '4rem' }}>
           <div>
             <h1 style={{ fontSize: '2.5rem', fontWeight: 300, marginBottom: '0.75rem', letterSpacing: '-1px' }}>
-              Olá, <span style={{ fontWeight: 500 }} className="text-cyan">Designer!</span>
+              Olá, <span style={{ fontWeight: 500 }} className="text-cyan">{userName}!</span>
             </h1>
             <p style={{ color: 'hsl(var(--muted-foreground))', fontSize: '1.125rem', fontWeight: 200 }}>
               Pronto para descobrir novas tipografias hoje?
@@ -106,9 +116,20 @@ export default function DashboardPage() {
                 display: 'flex', 
                 alignItems: 'center', 
                 justifyContent: 'center',
-                border: '1px solid hsla(var(--foreground), 0.05)'
+                border: '1px solid hsla(var(--foreground), 0.05)',
+                position: 'relative',
+                overflow: 'hidden'
               }}>
-                <span style={{ fontSize: '0.75rem', color: 'hsl(var(--muted))', fontWeight: 200 }}>Preview</span>
+                <div style={{ 
+                  fontFamily: `"${analysis.font}", serif`, 
+                  fontSize: '2rem', 
+                  color: 'white', 
+                  textAlign: 'center',
+                  opacity: 0.8
+                }}>
+                  Ag
+                </div>
+                <div style={{ position: 'absolute', bottom: '8px', right: '12px', fontSize: '0.6rem', color: 'hsl(var(--muted))', letterSpacing: '0.1em' }}>PREVIEW</div>
               </div>
               
               <div style={{ flex: 1, width: '100%' }}>

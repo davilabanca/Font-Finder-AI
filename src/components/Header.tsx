@@ -10,11 +10,11 @@ export default function Header() {
   return (
     <header className="glass" style={{ position: 'fixed', top: 0, width: '100%', zIndex: 100, borderTop: 'none', borderLeft: 'none', borderRight: 'none', borderRadius: 0 }}>
       <div className="container" style={{ height: '72px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '1.25rem', fontWeight: 700, fontFamily: 'Outfit' }}>
+        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.25rem', fontWeight: 600, letterSpacing: '-0.5px' }}>
           <div style={{ backgroundColor: 'hsl(var(--primary))', padding: '6px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Search size={20} color="white" />
+            <Search size={22} color="#001011" />
           </div>
-          <span>FontFinder<span style={{ color: 'hsl(var(--primary))' }}>AI</span></span>
+          <span>FontFinder<span className="text-cyan">AI</span></span>
         </Link>
 
         {/* Desktop Nav */}

@@ -11,15 +11,15 @@ export default function LoginPage() {
   return (
     <main style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'radial-gradient(circle at top right, hsla(var(--primary), 0.05), transparent)' }}>
       <div className="glass-card animate" style={{ width: '100%', maxWidth: '400px', padding: '2.5rem' }}>
-        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '1.5rem', fontWeight: 700, fontFamily: 'Outfit', marginBottom: '1rem' }}>
-            <div style={{ backgroundColor: 'hsl(var(--primary))', padding: '6px', borderRadius: '8px' }}>
-              <Search size={24} color="white" />
+        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+          <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', fontSize: '1.5rem', fontWeight: 600, letterSpacing: '-0.5px', marginBottom: '2rem' }}>
+            <div style={{ backgroundColor: 'hsl(var(--primary))', padding: '6px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Search size={22} color="#001011" />
             </div>
-            <span>FontFinder<span style={{ color: 'hsl(var(--primary))' }}>AI</span></span>
+            <span>FontFinder<span className="text-cyan">AI</span></span>
           </Link>
-          <h2 style={{ fontSize: '1.5rem' }}>Bem-vindo de volta</h2>
-          <p style={{ color: 'hsl(var(--muted-foreground))', fontSize: '0.875rem', marginTop: '0.5rem' }}>
+          <h2 style={{ fontSize: '2rem', fontWeight: 300, letterSpacing: '-0.5px' }}>Bem-vindo de volta</h2>
+          <p style={{ color: 'hsl(var(--muted))', fontSize: '0.875rem', marginTop: '0.75rem', fontWeight: 200 }}>
             Entre na sua conta para continuar suas análises.
           </p>
         </div>
