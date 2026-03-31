@@ -21,20 +21,20 @@ export default function BillingPage() {
         </header>
 
         {/* Current Plan Overview */}
-        <div className="glass-card" style={{ marginBottom: '3rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div className="glass-card" style={{ marginBottom: '3rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '2rem 2.5rem', border: '1px solid hsla(var(--foreground), 0.05)' }}>
           <div>
-            <p style={{ fontSize: '0.875rem', color: 'hsl(var(--muted-foreground))', marginBottom: '0.5rem' }}>Seu plano atual</p>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <h2 style={{ fontSize: '2rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{currentPlan}</h2>
-              <span style={{ backgroundColor: 'hsla(var(--primary), 0.1)', color: 'hsl(var(--primary))', padding: '4px 12px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: 600 }}>
-                Ativo
+            <p style={{ fontSize: '0.75rem', fontWeight: 600, color: 'hsl(var(--muted))', marginBottom: '0.75rem', letterSpacing: '0.05em' }}>SEU PLANO ATUAL</p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+              <h2 style={{ fontSize: '2.5rem', fontWeight: 300, letterSpacing: '-1px' }}>{currentPlan.toUpperCase()}</h2>
+              <span className="text-cyan" style={{ backgroundColor: 'hsla(var(--primary), 0.05)', padding: '6px 16px', borderRadius: '30px', fontSize: '0.75rem', fontWeight: 500, border: '1px solid hsla(var(--primary), 0.1)' }}>
+                ATIVO
               </span>
             </div>
           </div>
           {currentPlan === 'free' ? (
             <div style={{ textAlign: 'right' }}>
-              <p style={{ fontSize: '0.875rem', color: 'hsl(var(--muted-foreground))' }}>Próxima renovação: <strong>12 de Abril, 2026</strong></p>
-              <p style={{ fontSize: '0.75rem', marginTop: '0.25rem' }}>1 / 3 análises utilizadas este mês</p>
+              <p style={{ fontSize: '0.875rem', color: 'hsl(var(--muted))', fontWeight: 200 }}>Próxima renovação: <strong style={{ fontWeight: 400 }}>12 de Abril, 2026</strong></p>
+              <p style={{ fontSize: '0.75rem', marginTop: '0.5rem', color: 'hsl(var(--muted))', fontWeight: 200 }}>1 / 3 análises utilizadas este mês</p>
             </div>
           ) : (
             <button className="btn-outline">Gerenciar Assinatura</button>
@@ -42,54 +42,54 @@ export default function BillingPage() {
         </div>
 
         {/* Pricing Comparison */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '2rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '2.5rem' }}>
           {/* Free Plan */}
-          <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', opacity: currentPlan === 'free' ? 1 : 0.6 }}>
-            <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Plano Free</h3>
-            <p style={{ color: 'hsl(var(--muted-foreground))', marginBottom: '2rem' }}>Para uso ocasional e testes rápidos.</p>
+          <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', padding: '3.5rem 2.5rem', opacity: currentPlan === 'free' ? 1 : 0.6 }}>
+            <h3 style={{ fontSize: '1.5rem', fontWeight: 400, marginBottom: '1rem', letterSpacing: '-0.5px' }}>Plano Free</h3>
+            <p style={{ color: 'hsl(var(--muted-foreground))', marginBottom: '2.5rem', fontWeight: 200 }}>Para uso ocasional e testes rápidos.</p>
             
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '2rem' }}>
-              <span style={{ fontSize: '2.5rem', fontWeight: 700 }}>R$ 0</span>
-              <span style={{ color: 'hsl(var(--muted-foreground))' }}>/mês</span>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '3rem' }}>
+              <span style={{ fontSize: '3.5rem', fontWeight: 300, letterSpacing: '-2px' }}>R$ 0</span>
+              <span style={{ color: 'hsl(var(--muted))', fontSize: '1rem' }}>/mês</span>
             </div>
 
-            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '3rem', flex: 1 }}>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '12px' }}><Check size={20} color="hsl(var(--primary))" /> 3 análises por mês</li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '12px' }}><Check size={20} color="hsl(var(--primary))" /> Resultado base (Nome e Confiança)</li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '12px', opacity: 0.5 }}><ShieldAlert size={20} /> Histórico completo</li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '12px', opacity: 0.5 }}><ShieldAlert size={20} /> Detecção de distorção</li>
+            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '1.25rem', marginBottom: '4rem', flex: 1 }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '12px', fontWeight: 200 }}><Check size={18} className="text-cyan" /> 3 análises por mês</li>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '12px', fontWeight: 200 }}><Check size={18} className="text-cyan" /> Resultado base (Nome e Confiança)</li>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '12px', fontWeight: 200, opacity: 0.3 }}><ShieldAlert size={18} /> Histórico completo</li>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '12px', fontWeight: 200, opacity: 0.3 }}><ShieldAlert size={18} /> Detecção de distorção</li>
             </ul>
 
-            <button disabled={currentPlan === 'free'} className="btn-outline" style={{ width: '100%' }}>
-              {currentPlan === 'free' ? 'Plano Atual' : 'Downgrade'}
+            <button disabled={currentPlan === 'free'} className="btn-outline" style={{ width: '100%', padding: '1rem', fontWeight: 300 }}>
+              {currentPlan === 'free' ? 'PLANO ATUAL' : 'DOWNGRADE'}
             </button>
           </div>
 
           {/* Pro Plan */}
-          <div className="glass-card" style={{ border: '1px solid hsl(var(--primary))', position: 'relative', background: 'linear-gradient(145deg, hsla(var(--primary), 0.05), transparent)' }}>
-            <div style={{ position: 'absolute', top: '-12px', left: '50%', transform: 'translateX(-50%)', backgroundColor: 'hsl(var(--primary))', color: 'white', padding: '4px 12px', borderRadius: '12px', fontSize: '0.75rem', fontWeight: 700 }}>PREMIUM</div>
+          <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', padding: '3.5rem 2.5rem', border: '1px solid hsla(var(--primary), 0.2)', position: 'relative', background: 'linear-gradient(145deg, hsla(var(--primary), 0.05), transparent)' }}>
+            <div style={{ position: 'absolute', top: '-12px', left: '50%', transform: 'translateX(-50%)', backgroundColor: 'hsl(var(--primary))', color: '#001011', padding: '6px 16px', borderRadius: '30px', fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.05em' }}>PREMIUM</div>
             
-            <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <h3 style={{ fontSize: '1.5rem', fontWeight: 400, marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '10px', letterSpacing: '-0.5px' }}>
               Plano Pro
-              <Zap size={20} fill="currentColor" color="hsl(var(--primary))" />
+              <Zap size={20} fill="currentColor" className="text-cyan" />
             </h3>
-            <p style={{ color: 'hsl(var(--muted-foreground))', marginBottom: '2rem' }}>Acesso total para designers profissionais.</p>
+            <p style={{ color: 'hsl(var(--muted-foreground))', marginBottom: '2.5rem', fontWeight: 200 }}>Acesso total para designers profissionais.</p>
             
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '2rem' }}>
-              <span style={{ fontSize: '2.5rem', fontWeight: 700 }}>R$ 19</span>
-              <span style={{ color: 'hsl(var(--muted-foreground))' }}>/mês</span>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '3rem' }}>
+              <span style={{ fontSize: '3.5rem', fontWeight: 300, letterSpacing: '-2px' }}>R$ 19</span>
+              <span style={{ color: 'hsl(var(--muted))', fontSize: '1rem' }}>/mês</span>
             </div>
 
-            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '3rem', flex: 1 }}>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '12px' }}><Check size={20} color="hsl(var(--primary))" /> <strong>Análises Ilimitadas</strong></li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '12px' }}><Check size={20} color="hsl(var(--primary))" /> Histórico Completo & Favoritos</li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '12px' }}><Check size={20} color="hsl(var(--primary))" /> Detecção de Tracking e Outline</li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '12px' }}><Check size={20} color="hsl(var(--primary))" /> Exportação de relatórios em PDF</li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '12px' }}><Check size={20} color="hsl(var(--primary))" /> Suporte prioritário</li>
+            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '1.25rem', marginBottom: '4rem', flex: 1 }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '12px', fontWeight: 300 }}><Check size={18} className="text-cyan" /> <strong>Análises Ilimitadas</strong></li>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '12px', fontWeight: 300 }}><Check size={18} className="text-cyan" /> Histórico Completo & Favoritos</li>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '12px', fontWeight: 300 }}><Check size={18} className="text-cyan" /> Detecção de Tracking e Outline</li>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '12px', fontWeight: 300 }}><Check size={18} className="text-cyan" /> Exportação de relatórios em PDF</li>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '12px', fontWeight: 300 }}><Check size={18} className="text-cyan" /> Suporte prioritário</li>
             </ul>
 
-            <button className="btn-primary pulse" style={{ width: '100%', padding: '1rem' }}>
-              Obter Acesso Vitalício (PRO)
+            <button className="btn-primary" style={{ width: '100%', padding: '1.25rem', backgroundColor: 'hsl(var(--accent))', color: '#001011', fontWeight: 600 }}>
+              OBTER ACESSO VITALÍCIO (PRO)
               <ArrowRight size={20} />
             </button>
           </div>

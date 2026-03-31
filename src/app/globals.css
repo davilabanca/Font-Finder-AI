@@ -120,3 +120,14 @@ nav .active {
 .animate {
   animation: fadeIn 0.5s ease forwards;
 }
+
+/* Hide Next.js Dev Toolbar */
+#nextjs-dev-overlay,
+.nextjs-static-indicator-wrapper,
+[data-nextjs-toast-wrapper],
+#next-dev-tools,
+.nextjs-toast {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}

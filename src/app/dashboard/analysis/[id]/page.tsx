@@ -15,17 +15,17 @@ export default function AnalysisResultPage() {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    // Load result from localStorage
     const history = JSON.parse(localStorage.getItem('analysis_history') || '[]');
     const entry = history.find((h: any) => h.id === id);
     if (entry) {
       setResult(entry);
-      
-      // Check if is favorite
       const favorites = JSON.parse(localStorage.getItem('font_favorites') || '[]');
       setIsFavorite(favorites.includes(id));
+    } else {
+      const timer = setTimeout(() => { if (!result) router.push('/dashboard'); }, 2000);
+      return () => clearTimeout(timer);
     }
-  }, [id]);
+  }, [id, router, result]);
 
   const toggleFavorite = () => {
     const favorites = JSON.parse(localStorage.getItem('font_favorites') || '[]');
@@ -39,7 +39,12 @@ export default function AnalysisResultPage() {
     setIsFavorite(!isFavorite);
   };
 
-  if (!result) return <div style={{ display: 'flex', minHeight: '100vh', alignItems: 'center', justifyContent: 'center', color: 'hsl(var(--muted))' }}>Carregando...</div>;
+  if (!result) return (
+    <div style={{ display: 'flex', minHeight: '100vh', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', backgroundColor: 'hsl(var(--background))', color: 'hsl(var(--muted))', gap: '1.5rem' }}>
+       <RefreshCcw className="animate-spin" size={32} style={{ opacity: 0.5 }} />
+       <div style={{ fontSize: '1rem', fontWeight: 200, letterSpacing: '0.1em' }}>ANALISANDO CONTEXTO...</div>
+    </div>
+  );
 
   const data = result.result as AnalysisResult;
 
